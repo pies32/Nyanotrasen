@@ -139,7 +139,6 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         UpdateCartridgeInstallationStatus(installedProgram, deinstallable ? InstallationStatus.Installed : InstallationStatus.Readonly);
         loader.InstalledPrograms.Add(installedProgram);
         RaiseLocalEvent(installedProgram, new CartridgeInstalledEvent(loaderUid));
-        Console.WriteLine("Ayo!!");
         UpdateUserInterfaceState(loaderUid, loader);
         return true;
     }

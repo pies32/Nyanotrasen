@@ -9,3 +9,4 @@ net-probe-label-frequency = Frequency
 net-probe-label-network = Network
 
 gas-analyzer-program-name = Gas Analyzer
+health-analyzer-program-name = Health Analyzer

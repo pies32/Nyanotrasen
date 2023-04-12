@@ -61,5 +61,28 @@
         sprite: Objects/Specific/Atmos/gasanalyzer.rsi
         state: icon
     - type: GasAnalyzerCartridge
+
+- type: entity
+  parent: BaseItem
+  id: HealthAnalyzerCartridge
+  name: Health Analyzer cartridge
+  description: A program for viewing the damage of living creatures.
+  components:
+    - type: Sprite
+      sprite: Objects/Devices/cartridge.rsi
+      state: cart-m
+      netsync: false
+    - type: Icon
+      sprite: Objects/Devices/cartridge.rsi
+      state: cart-m
+    - type: Cartridge
+      programName: health-analyzer-program-name
+      icon:
+        sprite: Objects/Specific/Medical/healthanalyzer.rsi
+        state: icon
+    - type: HealthAnalyzerCartridge
+      scanDelay: 0.8
+      scanningEndSound:
+        path: "/Audio/Items/Medical/healthscanner.ogg"
       
 
