@@ -40,7 +40,7 @@ public sealed class NetProbeCartridgeSystem : EntitySystem
         if (!Resolve(target, ref networkComponent, false))
             return;
 
-        //Ceck if device is already present in list
+        //Check if device is already present in list
         foreach (var probedDevice in component.ProbedDevices)
         {
             if (probedDevice.Address == networkComponent.Address)
