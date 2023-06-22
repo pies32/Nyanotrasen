@@ -1,4 +1,4 @@
-﻿using Content.Server.DeviceNetwork.Systems;
+using Content.Server.DeviceNetwork.Systems;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Interaction;
 using Robust.Server.Containers;
@@ -109,6 +109,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         //This will eventually be replaced by serializing and deserializing the cartridge to copy it when something needs
         //the data on the cartridge to carry over when installing
         var prototypeId = Prototype(cartridgeUid)?.ID;
+        RaiseLocalEvent(cartridgeUid, new CartridgeAddedEvent(loaderUid));
         return prototypeId != null && InstallProgram(loaderUid, prototypeId, loader: loader);
     }
 
@@ -137,12 +138,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 
         UpdateCartridgeInstallationStatus(installedProgram, deinstallable ? InstallationStatus.Installed : InstallationStatus.Readonly);
         loader.InstalledPrograms.Add(installedProgram);
-
-        RaiseLocalEvent(installedProgram, new CartridgeAddedEvent(loaderUid));
+        RaiseLocalEvent(installedProgram, new CartridgeInstalledEvent(loaderUid));
         UpdateUserInterfaceState(loaderUid, loader);
         return true;
     }
-
+    
     /// <summary>
     /// Uninstalls a program using its uid
     /// </summary>
@@ -161,6 +161,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         loader.BackgroundPrograms.Remove(programUid);
         loader.InstalledPrograms.Remove(programUid);
         EntityManager.QueueDeleteEntity(programUid);
+        RaiseLocalEvent(programUid, new CartridgeUninstalledEvent(loaderUid));
         UpdateUserInterfaceState(loaderUid, loader);
         return true;
     }
@@ -297,6 +298,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
                 break;
             case CartridgeUiMessageAction.Install:
                 InstallCartridge(loaderUid, message.CartridgeUid, component);
+                RaiseLocalEvent(loaderUid, new CartridgeInstalledEvent(loaderUid));
                 break;
             case CartridgeUiMessageAction.Uninstall:
                 UninstallProgram(loaderUid, message.CartridgeUid, component);

@@ -98,6 +98,8 @@
       type: InstrumentBoundUserInterface
     - key: enum.HealthAnalyzerUiKey.Key
       type: HealthAnalyzerBoundUserInterface
+    - key: enum.GasAnalyzerUiKey.Key
+      type: GasAnalyzerBoundUserInterface
   - type: CrewManifestViewer
     unsecure: true
   - type: Tag
@@ -403,10 +405,6 @@
     accentVColor: "#447987"
   - type: Icon
     state: pda-medical
-  - type: HealthAnalyzer
-    scanDelay: 1.2
-    scanningEndSound:
-      path: "/Audio/Items/Medical/healthscanner.ogg"
 
 - type: entity
   parent: BasePDA

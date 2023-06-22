@@ -1,4 +1,4 @@
-﻿using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
@@ -76,13 +76,36 @@ public abstract class SharedCartridgeLoaderSystem : EntitySystem
 }
 
 /// <summary>
-/// Gets sent to program / cartridge entities when they get inserted or installed
+/// Gets sent to program / cartridge entities when they get inserted
 /// </summary>
 public sealed class CartridgeAddedEvent : EntityEventArgs
 {
     public readonly EntityUid Loader;
 
     public CartridgeAddedEvent(EntityUid loader)
+    {
+        Loader = loader;
+    }
+}
+
+/// <summary>
+/// Gets sent to program / cartridge entities when they get installed
+/// </summary>
+public sealed class CartridgeInstalledEvent : EntityEventArgs
+{
+    public readonly EntityUid Loader;
+
+    public CartridgeInstalledEvent(EntityUid loader)
+    {
+        Loader = loader;
+    }
+}
+
+public sealed class CartridgeUninstalledEvent : EntityEventArgs
+{
+    public readonly EntityUid Loader;
+
+    public CartridgeUninstalledEvent(EntityUid loader)
     {
         Loader = loader;
     }
@@ -145,3 +168,5 @@ public sealed class CartridgeUiReadyEvent : EntityEventArgs
         Loader = loader;
     }
 }
+
+
